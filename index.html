@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Râyiha Food CO. — Antalya Bulut Mutfak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:    #F4EFE3;
+      --cream-dk: #E8DFC8;
+      --parchment:#FAF6EE;
+      --red:      #A81C1C;
+      --red-dk:   #7A1212;
+      --red-lt:   #C93535;
+      --charcoal: #1E1A17;
+      --warm-grey:#6B6057;
+      --gold:     #C8973A;
+      --white:    #FEFCF8;
+      --ff-display: 'Playfair Display', Georgia, serif;
+      --ff-serif:   'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'DM Sans', system-ui, sans-serif;
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cream);
+      color: var(--charcoal);
+      font-family: var(--ff-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.022;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+
+    /* SCROLL ANIMATIONS */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease-out-quart), transform 0.75s var(--ease-out-quart);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left  { transform: translateX(-32px); }
+    .reveal-right { transform: translateX(32px); }
+    .reveal-left.visible, .reveal-right.visible { transform: translateX(0); }
+    .stagger-1 { transition-delay: 0.08s; }
+    .stagger-2 { transition-delay: 0.16s; }
+    .stagger-3 { transition-delay: 0.24s; }
+    .stagger-4 { transition-delay: 0.32s; }
+    .stagger-5 { transition-delay: 0.40s; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      transition: background 0.4s, backdrop-filter 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(244, 239, 227, 0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 rgba(168,28,28,.1);
+    }
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+      color: var(--red-dk);
+    }
+    .nav-logo span { color: var(--charcoal); }
+    .nav-cta {
+      font-size: .78rem;
+      font-weight: 400;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid var(--red);
+      padding: .45rem 1.2rem;
+      border-radius: 100px;
+      transition: background .25s, color .25s;
+    }
+    .nav-cta:hover { background: var(--red); color: var(--white); }
+
+    /* HERO */
+    #hero {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 8rem 1.5rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,28,28,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-bg-circle.c1 { width: 700px; height: 700px; top: -200px; left: -150px; }
+    .hero-bg-circle.c2 { width: 500px; height: 500px; bottom: -100px; right: -100px; }
+    .hero-tagline {
+      display: inline-block;
+      font-family: var(--ff-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--red);
+      letter-spacing: .08em;
+      margin-bottom: 1.4rem;
+    }
+    .hero-title {
+      font-family: var(--ff-display);
+      font-weight: 800;
+      font-size: clamp(3.4rem, 10vw, 8.5rem);
+      line-height: .93;
+      letter-spacing: -.025em;
+      color: var(--charcoal);
+      margin-bottom: 1.6rem;
+    }
+    .hero-title .accent { color: var(--red); }
+    .hero-title .sub {
+      display: block;
+      font-size: clamp(1.6rem, 4vw, 3.8rem);
+      font-style: italic;
+      font-weight: 700;
+      color: var(--red-lt);
+      letter-spacing: .01em;
+      margin-top: .4rem;
+    }
+    .hero-desc {
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      font-size: .93rem;
+      color: var(--warm-grey);
+      line-height: 1.8;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--ff-body);
+      font-size: .82rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .95rem 2.3rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: background .25s, transform .22s;
+    }
+    .btn-primary:hover { background: var(--red-dk); transform: translateY(-2px); }
+    .btn-primary svg { transition: transform .25s; }
+    .btn-primary:hover svg { transform: translateY(3px); }
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--warm-grey);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 38px;
+      background: linear-gradient(to bottom, var(--warm-grey), transparent);
+      animation: scrollLine 1.9s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* MARQUEE */
+    .marquee-wrap {
+      overflow: hidden;
+      background: var(--red);
+      padding: .75rem 0;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 2.5rem;
+      white-space: nowrap;
+      animation: marquee 24s linear infinite;
+    }
+    .marquee-track span {
+      font-family: var(--ff-serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(255,255,255,.82);
+      flex-shrink: 0;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ABOUT */
+    #about {
+      padding: 7rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .section-label {
+      font-size: .72rem;
+      font-weight: 400;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+    .about-text h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    .about-text h2 em { font-style: italic; color: var(--red); }
+    .about-text p { color: var(--warm-grey); font-size: .93rem; margin-bottom: 1rem; }
+    .about-visual {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+    .about-card {
+      background: var(--white);
+      border: 1px solid var(--cream-dk);
+      border-radius: 24px;
+      padding: 2.8rem 2.2rem;
+      text-align: center;
+      box-shadow: 0 10px 50px rgba(30,26,23,.09);
+      max-width: 320px;
+      width: 100%;
+    }
+    .about-card-icon {
+      width: 60px; height: 60px;
+      background: var(--red);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 1.2rem;
+    }
+    .about-card h3 {
+      font-family: var(--ff-serif);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+    .about-card p { font-size: .86rem; color: var(--warm-grey); }
+    .float-badge {
+      position: absolute;
+      top: -18px; right: -5px;
+      background: var(--gold);
+      color: var(--white);
+      font-family: var(--ff-serif);
+      font-style: italic;
+      font-size: .9rem;
+      padding: .45rem 1.1rem;
+      border-radius: 100px;
+      box-shadow: 0 4px 16px rgba(200,151,58,.35);
+      white-space: nowrap;
+    }
+
+    /* BRANDS */
+    #brands {
+      background: var(--charcoal);
+      color: var(--cream);
+      padding: 7rem 1.5rem;
+      overflow: hidden;
+    }
+    .brands-inner { max-width: 1100px; margin: 0 auto; }
+    .brands-header { text-align: center; margin-bottom: 4rem; }
+    .brands-header .section-label { color: var(--gold); }
+    .brands-header h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--cream);
+    }
+    .brands-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .brand-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, border-color .3s;
+    }
+    .brand-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.18); }
+    .brand-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .brand-card.sumakh::before { background: linear-gradient(to right, var(--red), var(--gold)); }
+    .brand-card.helwa::before  { background: linear-gradient(to right, var(--gold), #e8c47a); }
+    .brand-name {
+      font-family: var(--ff-display);
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: .8rem;
+    }
+    .brand-card.sumakh .brand-name { color: var(--red-lt); }
+    .brand-card.helwa  .brand-name { color: var(--gold); }
+    .brand-card p { color: rgba(244,239,227,.62); font-size: .9rem; line-height: 1.7; }
+    .brand-pill {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(244,239,227,.5);
+      padding: .35rem .9rem;
+      border-radius: 100px;
+    }
+
+    /* FAVORITES */
+    #favorites {
+      background: var(--red-dk);
+      color: var(--cream);
+      padding: 6.5rem 1.5rem;
+      text-align: center;
+    }
+    .favorites-inner { max-width: 920px; margin: 0 auto; }
+    .favorites-label {
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(244,239,227,.48);
+      margin-bottom: 1rem;
+    }
+    .favorites-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2.2rem, 6vw, 4.2rem);
+      font-weight: 800;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 3rem;
+    }
+    .fav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.4rem;
+      text-align: left;
+    }
+    .fav-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      padding: 1.8rem 1.6rem;
+      transition: background .25s, transform .25s;
+    }
+    .fav-card:hover { background: rgba(255,255,255,.12); transform: translateY(-3px); }
+    .fav-card h4 {
+      font-family: var(--ff-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: .4rem;
+    }
+    .fav-card p { font-size: .82rem; color: rgba(244,239,227,.58); line-height: 1.6; }
+
+    /* MENU */
+    #menu {
+      padding: 7rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .menu-header { text-align: center; margin-bottom: 4.5rem; }
+    .menu-header h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--charcoal);
+    }
+    .menu-header h2 .italic-accent { font-style: italic; color: var(--red); }
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: .5rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      font-family: var(--ff-body);
+      font-size: .8rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--warm-grey);
+      border: 1px solid var(--cream-dk);
+      padding: .6rem 1.6rem;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all .25s;
+    }
+    .tab-btn.active, .tab-btn:hover { background: var(--red); color: var(--white); border-color: var(--red); }
+    .menu-panel { display: none; }
+    .menu-panel.active { display: block; }
+    .menu-section-title {
+      font-family: var(--ff-serif);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      letter-spacing: .02em;
+      padding-bottom: .8rem;
+      border-bottom: 1px solid var(--cream-dk);
+      margin-bottom: 1.8rem;
+      margin-top: 3rem;
+    }
+    .menu-section-title:first-child { margin-top: 0; }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1px;
+      background: var(--cream-dk);
+      border: 1px solid var(--cream-dk);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .menu-item {
+      background: var(--parchment);
+      padding: 1.6rem 1.8rem;
+      transition: background .2s;
+    }
+    .menu-item:hover { background: var(--white); }
+    .menu-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: .4rem;
+    }
+    .menu-item-name {
+      font-family: var(--ff-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      line-height: 1.3;
+    }
+    .menu-item-badges { display: flex; gap: .3rem; flex-shrink: 0; margin-top: .1rem; }
+    .badge {
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .2rem .5rem;
+      border-radius: 4px;
+    }
+    .badge-v  { background: rgba(76,153,76,.12); color: #3a7a3a; }
+    .badge-gf { background: rgba(200,151,58,.12); color: #8a6015; }
+    .menu-item-desc { font-size: .83rem; color: var(--warm-grey); line-height: 1.55; }
+    .inline-box {
+      background: var(--parchment);
+      border: 1px solid var(--cream-dk);
+      border-radius: 16px;
+      padding: 1.5rem 1.8rem;
+    }
+    .inline-items { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .6rem; }
+    .inline-item {
+      background: var(--cream-dk);
+      color: var(--charcoal);
+      font-size: .8rem;
+      padding: .3rem .85rem;
+      border-radius: 100px;
+    }
+    .menu-note {
+      font-size: .74rem;
+      color: var(--warm-grey);
+      margin-top: 1.2rem;
+      text-align: right;
+      letter-spacing: .04em;
+    }
+
+    /* INFO */
+    #info {
+      background: var(--cream-dk);
+      padding: 5rem 1.5rem;
+    }
+    .info-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .info-card {
+      background: var(--white);
+      border: 1px solid rgba(232,223,200,.7);
+      border-radius: 16px;
+      padding: 2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+    }
+    .info-card-icon {
+      width: 44px; height: 44px;
+      background: rgba(168,28,28,.08);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+    }
+    .info-card h3 { font-family: var(--ff-serif); font-size: 1.1rem; font-weight: 600; }
+    .info-card p { font-size: .88rem; color: var(--warm-grey); line-height: 1.65; }
+    .info-card a { color: var(--red); }
+    .info-card a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal);
+      color: var(--cream);
+      padding: 5.5rem 1.5rem 3rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: var(--ff-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--cream);
+      margin-bottom: .5rem;
+    }
+    .footer-tagline {
+      font-family: var(--ff-serif);
+      font-style: italic;
+      color: rgba(244,239,227,.42);
+      margin-bottom: 2.5rem;
+    }
+    .footer-divider {
+      height: 1px;
+      background: rgba(255,255,255,.07);
+      margin: 0 auto 2.2rem;
+      max-width: 280px;
+    }
+    .footer-follow {
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(244,239,227,.42);
+      margin-bottom: 1rem;
+    }
+    .ig-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      color: var(--cream);
+      padding: .72rem 1.7rem;
+      border-radius: 100px;
+      font-size: .83rem;
+      letter-spacing: .05em;
+      transition: background .25s, transform .2s;
+    }
+    .ig-link:hover { background: rgba(255,255,255,.13); transform: translateY(-2px); }
+    .footer-copy {
+      margin-top: 3rem;
+      font-size: .74rem;
+      color: rgba(244,239,227,.22);
+    }
+
+    /* HERO LOGO */
+    .hero-logo-wrap {
+      margin: 0 auto 2rem;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-logo-wrap img {
+      width: 160px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 18px rgba(168,28,28,.18));
+    }
+
+    /* NAV LOGO IMAGE */
+    .nav-logo-img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* BRAND CARD IMAGES */
+    .brand-img-wrap {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1.6rem;
+      aspect-ratio: 16 / 9;
+      background: rgba(255,255,255,.05);
+    }
+    .brand-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s var(--ease-out-quart);
+    }
+    .brand-card:hover .brand-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      #about { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-visual { order: -1; }
+      .brands-grid { grid-template-columns: 1fr; }
+      .info-inner { grid-template-columns: 1fr; max-width: 480px; }
+    }
+    @media (max-width: 600px) {
+      .hero-title { font-size: clamp(2.8rem, 13vw, 5rem); }
+      .menu-grid { grid-template-columns: 1fr; }
+      .fav-grid { grid-template-columns: 1fr; }
+      .float-badge { display: none; }
+      nav { padding: .9rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <img src="logo.png" alt="Râyiha Food CO." class="nav-logo-img" />
+    </div>
+    <a href="#menu" class="nav-cta">Tam Menü</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-circle c1"></div>
+    <div class="hero-bg-circle c2"></div>
+    <div>
+      <span class="hero-tagline reveal">— Merak iyidir değil mi? —</span>
+      <div class="hero-logo-wrap reveal stagger-1">
+        <img src="logo.png" alt="Râyiha Food CO. Logo" />
+      </div>
+      <h1 class="hero-title reveal stagger-2">
+        Râyiha<br>
+        <span class="accent">Food</span>
+        <span class="sub">CO.</span>
+      </h1>
+      <p class="hero-desc reveal stagger-3">
+        Antalya'nın kalbinde iki ikonik markayı bir araya getiren bulut mutfak deneyimi.
+        Sokak lezzetleri ve geleneksel helva ile sizi bekliyoruz.
+      </p>
+      <a href="#menu" class="btn-primary reveal stagger-4">
+        Tam Menüyü Keşfet
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M7 1v12M1 7l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Kaydır</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>Sumakh Dürüm</span><span>·</span>
+      <span>Falafel Bowl</span><span>·</span>
+      <span>Cennet Çamuru</span><span>·</span>
+      <span>Bağdat Bowl</span><span>·</span>
+      <span>İrmik Helvası</span><span>·</span>
+      <span>Shaurma</span><span>·</span>
+      <span>Cold Brew Coffee</span><span>·</span>
+      <span>Süt Helvası</span><span>·</span>
+      <span>Sumakh Dürüm</span><span>·</span>
+      <span>Falafel Bowl</span><span>·</span>
+      <span>Cennet Çamuru</span><span>·</span>
+      <span>Bağdat Bowl</span><span>·</span>
+      <span>İrmik Helvası</span><span>·</span>
+      <span>Shaurma</span><span>·</span>
+      <span>Cold Brew Coffee</span><span>·</span>
+      <span>Süt Helvası</span><span>·</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-text">
+      <p class="section-label reveal">Biz Kimiz</p>
+      <h2 class="reveal stagger-1">Mutfak bir <em>sistem</em>,<br>değil mi?</h2>
+      <p class="reveal stagger-2">
+        Beş gastronomi öğrencisi olarak eğitim hayatımız boyunca mutfağın yalnızca
+        pişirmekten ibaret olmadığını öğrendik. Planlama, maliyet yönetimi, marka
+        oluşturma ve operasyon disiplini bunun ayrılmaz parçaları.
+      </p>
+      <p class="reveal stagger-3">
+        Akademik bilgimizi sahaya taşımak ve sürdürülebilir bir model geliştirmek
+        amacıyla Antalya'da kendi bulut mutfak şirketimiz olan Râyiha'yı kurduk.
+      </p>
+      <p class="reveal stagger-4">
+        Kepez Kültür Mahallesi'nde konuşlanan mutfağımız; üniversite öğrencileri,
+        orta gelirli aileler ve güçlü paket servis kültürünün buluştuğu ideal bir
+        zemin üzerine inşa edildi.
+      </p>
+    </div>
+    <div class="about-visual reveal-right reveal stagger-2">
+      <div class="about-card">
+        <div class="about-card-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M14 4C8.48 4 4 8.48 4 14s4.48 10 10 10 10-4.48 10-10S19.52 4 14 4zm-1 15v-6h2v6h-2zm0-8V9h2v2h-2z" fill="rgba(255,255,255,.92)"/>
+          </svg>
+        </div>
+        <h3>Bulut Mutfak</h3>
+        <p>Fiziksel servis alanı yerine operasyonel verimliliği önceleyen sürdürülebilir model.</p>
+      </div>
+      <div class="float-badge">Antalya 🌿</div>
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <section id="brands">
+    <div class="brands-inner">
+      <div class="brands-header">
+        <p class="section-label reveal">İki Güçlü Marka</p>
+        <h2 class="reveal stagger-1">Aynı mutfak,<br>iki farklı dünya.</h2>
+      </div>
+      <div class="brands-grid">
+        <div class="brand-card sumakh reveal reveal-left stagger-1">
+          <div class="brand-img-wrap">
+            <img src="sumakh-photo.jpg" alt="Sumakh — Dürüm ve Bowl Çeşitleri" />
+          </div>
+          <div class="brand-name">Sumakh</div>
+          <p>Tavuk dürüm, falafel dürüm ve uygun fiyatlı protein odaklı ürünler sunan hızlı tüketim markamız. Doyuruculuk ve lezzet bir arada.</p>
+          <div class="brand-pill">Hızlı &nbsp;·&nbsp; Protein &nbsp;·&nbsp; Doyurucu</div>
+        </div>
+        <div class="brand-card helwa reveal reveal-right stagger-2">
+          <div class="brand-img-wrap">
+            <img src="helwa-photo.jpg" alt="Helwa — İrmik Helvası Çeşitleri" />
+          </div>
+          <div class="brand-name">Helwa</div>
+          <p>İrmik helvası çeşitleriyle tatlı ihtiyacını karşılayan, sepet ortalamasını artıran tamamlayıcı tatlı markamız.</p>
+          <div class="brand-pill">Geleneksel &nbsp;·&nbsp; Tatlı &nbsp;·&nbsp; Helva</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CROWD FAVORITES -->
+  <section id="favorites">
+    <div class="favorites-inner">
+      <p class="favorites-label reveal">En Çok Sevilenler</p>
+      <h2 class="favorites-title reveal stagger-1">Crowd Favorites</h2>
+      <div class="fav-grid">
+        <div class="fav-card reveal stagger-1">
+          <h4>Shaurma</h4>
+          <p>Patates Kızartması, Aioli, Salatalık Turşusu, Sebzeli Tavuk Döner 120gr</p>
+        </div>
+        <div class="fav-card reveal stagger-2">
+          <h4>Sumakh Dürüm</h4>
+          <p>Sumak Sos, Salatalık Turşusu, Aioli, Tavuk Döner 120gr</p>
+        </div>
+        <div class="fav-card reveal stagger-3">
+          <h4>Falafel Dürüm</h4>
+          <p>Falafel, Yoğurt-Tahin Sos, Marul, Domates, Salatalık Turşusu, Soğan</p>
+        </div>
+        <div class="fav-card reveal stagger-4">
+          <h4>Sade İrmik Helvası</h4>
+          <p>⅓ dondurma, tahin ve fıstıkla servis edilir.</p>
+        </div>
+        <div class="fav-card reveal stagger-5">
+          <h4>Cennet Çamuru</h4>
+          <p>⅓ dondurma, antep fıstıklı irmik helvası ve toz antep fıstığı ile servis edilir.</p>
+        </div>
+        <div class="fav-card reveal stagger-1">
+          <h4>Çikolatalı İrmik Helvası</h4>
+          <p>⅓ çikolatalı sos ve fıstıkla servis edilir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL MENU -->
+  <section id="menu">
+    <div class="menu-header">
+      <p class="section-label reveal">Tam Menü</p>
+      <h2 class="reveal stagger-1">Her şey <span class="italic-accent">burada.</span></h2>
+    </div>
+
+    <div class="menu-tabs">
+      <button class="tab-btn active" data-tab="sumakh">Sumakh</button>
+      <button class="tab-btn" data-tab="helwa">Helwa</button>
+    </div>
+
+    <!-- SUMAKH TAB -->
+    <div class="menu-panel active" id="tab-sumakh">
+
+      <h3 class="menu-section-title reveal">Shaurma &amp; Bowl</h3>
+      <div class="menu-grid">
+        <div class="menu-item reveal stagger-1">
+          <div class="menu-item-top"><span class="menu-item-name">Shaurma</span></div>
+          <p class="menu-item-desc">Patates Kızartması, Aioli, Salatalık Turşusu, Hatay Sos, Tavuk Döner (80–100gr)</p>
+        </div>
+        <div class="menu-item reveal stagger-2">
+          <div class="menu-item-top"><span class="menu-item-name">Sumakh Dürüm</span></div>
+          <p class="menu-item-desc">Sumak Sos, Salatalık Turşusu, Aioli, Tavuk Döner (80–100gr)</p>
+        </div>
+        <div class="menu-item reveal stagger-3">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Falafel Dürüm</span>
+            <div class="menu-item-badges"><span class="badge badge-v">V</span></div>
+          </div>
+          <p class="menu-item-desc">Falafel, Yoğurt-Tahin Sos, Marul, Domates, Salatalık Turşusu, Soğan</p>
+        </div>
+        <div class="menu-item reveal stagger-4">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Falafel Bowl</span>
+            <div class="menu-item-badges"><span class="badge badge-gf">GF</span><span class="badge badge-v">V</span></div>
+          </div>
+          <p class="menu-item-desc">Falafel, Basmati Pirinç, Salatalık Turşusu, Mısır, Yoğurt-Tahin Sos, Mevsim Yeşillikleri, Avokado</p>
+        </div>
+        <div class="menu-item reveal stagger-5">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Bağdat Bowl</span>
+            <div class="menu-item-badges"><span class="badge badge-gf">GF</span></div>
+          </div>
+          <p class="menu-item-desc">Biber, Patlıcan, Yoğurt, Mevsim Salata, Haşlanmış Tavuk, Basmati Pirinç, Kızarmış Domates</p>
+        </div>
+      </div>
+
+      <h3 class="menu-section-title reveal" style="margin-top:2.5rem;">Aperitif</h3>
+      <div class="menu-grid">
+        <div class="menu-item reveal stagger-1"><span class="menu-item-name">İçli Köfte</span></div>
+        <div class="menu-item reveal stagger-2">
+          <span class="menu-item-name">Köz Patlıcan-Biber</span>
+          <p class="menu-item-desc" style="margin-top:.25rem;">120gr</p>
+        </div>
+        <div class="menu-item reveal stagger-3">
+          <span class="menu-item-name">Humus</span>
+          <p class="menu-item-desc" style="margin-top:.25rem;">120gr</p>
+        </div>
+        <div class="menu-item reveal stagger-4">
+          <span class="menu-item-name">Tabule</span>
+          <p class="menu-item-desc" style="margin-top:.25rem;">120gr</p>
+        </div>
+      </div>
+
+      <h3 class="menu-section-title reveal" style="margin-top:2.5rem;">Soslar</h3>
+      <div class="inline-box reveal" style="margin-bottom:1rem;">
+        <p class="menu-item-desc">Lavaş ve Gobit seçenekleri ile servis edilir.</p>
+        <div class="inline-items">
+          <span class="inline-item">Sarımsaklı Sos</span>
+          <span class="inline-item">Nar Ekşi Sos</span>
+          <span class="inline-item">Sumak Sos</span>
+          <span class="inline-item">Zahter Aioli</span>
+        </div>
+      </div>
+
+      <div class="inline-box reveal" style="margin-bottom:1rem;">
+        <span class="menu-item-name">Patates Kızartması</span>
+        <div class="inline-items">
+          <span class="inline-item">Az</span>
+          <span class="inline-item">Çok</span>
+        </div>
+      </div>
+
+      <h3 class="menu-section-title reveal" style="margin-top:2.5rem;">İçecekler</h3>
+      <div class="inline-box reveal">
+        <div class="inline-items">
+          <span class="inline-item">Ayran</span>
+          <span class="inline-item">Soda</span>
+          <span class="inline-item">Şalgam (Acılı)</span>
+          <span class="inline-item">Şalgam (Acısız)</span>
+          <span class="inline-item">Limonata</span>
+          <span class="inline-item">Pepsi</span>
+          <span class="inline-item">Yedigün</span>
+          <span class="inline-item">Su</span>
+        </div>
+      </div>
+
+      <p class="menu-note">GF: Glütensiz &nbsp;·&nbsp; V: Vejetaryen</p>
+    </div>
+
+    <!-- HELWA TAB -->
+    <div class="menu-panel" id="tab-helwa">
+
+      <h3 class="menu-section-title reveal">Geleneksel Helwa</h3>
+      <div class="menu-grid">
+        <div class="menu-item reveal stagger-1">
+          <span class="menu-item-name">Sade İrmik Helvası</span>
+          <p class="menu-item-desc" style="margin-top:.3rem;">⅓ dondurma, tahin ve fıstıkla servis edilir.</p>
+        </div>
+        <div class="menu-item reveal stagger-2">
+          <span class="menu-item-name">Çikolatalı İrmik Helvası</span>
+          <p class="menu-item-desc" style="margin-top:.3rem;">⅓ çikolatalı sos ve fıstıkla servis edilir.</p>
+        </div>
+        <div class="menu-item reveal stagger-3">
+          <span class="menu-item-name">Cennet Çamuru</span>
+          <p class="menu-item-desc" style="margin-top:.3rem;">⅓ dondurma, antep fıstıklı irmik helvası ve toz antep fıstığı ile servis edilir.</p>
+        </div>
+        <div class="menu-item reveal stagger-4">
+          <span class="menu-item-name">Mevsim Meyveli Helva</span>
+          <p class="menu-item-desc" style="margin-top:.3rem;">⅓ dondurma, kurutulmuş meyve ve çilek sos ile servis edilir.</p>
+        </div>
+        <div class="menu-item reveal stagger-5">
+          <span class="menu-item-name">Süt Helvası</span>
+          <p class="menu-item-desc" style="margin-top:.3rem;">Kavrulmuş Fındık ile servis edilir.</p>
+        </div>
+      </div>
+
+      <h3 class="menu-section-title reveal" style="margin-top:2.5rem;">Dondurma Çeşitleri</h3>
+      <div class="inline-box reveal">
+        <div class="inline-items">
+          <span class="inline-item">Sütlü</span>
+          <span class="inline-item">Tahinli</span>
+          <span class="inline-item">Çikolatalı</span>
+          <span class="inline-item">Mevsim Meyveli</span>
+        </div>
+      </div>
+
+      <h3 class="menu-section-title reveal" style="margin-top:2.5rem;">İçecekler</h3>
+      <div class="inline-box reveal">
+        <div class="inline-items">
+          <span class="inline-item">Su</span>
+          <span class="inline-item">Soda</span>
+          <span class="inline-item">Pepsi</span>
+          <span class="inline-item">Yedigün</span>
+          <span class="inline-item">Cold Brew Coffee</span>
+          <span class="inline-item">Ice Tea</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO -->
+  <section id="info">
+    <div class="info-inner">
+      <div class="info-card reveal stagger-1">
+        <div class="info-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="var(--red)" opacity=".85"/>
+          </svg>
+        </div>
+        <h3>Konum</h3>
+        <p>Kepez Kültür Mahallesi, Antalya<br>Bulut Mutfak — Sadece Paket Servis</p>
+      </div>
+      <div class="info-card reveal stagger-2">
+        <div class="info-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="var(--red)" stroke-width="1.6"/>
+            <path d="M12 7v5l3 3" stroke="var(--red)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Çalışma Saatleri</h3>
+        <p>Pazartesi – Cumartesi<br>12:00 – 01:00<br>Pazar: 14:00 – 23:00</p>
+      </div>
+      <div class="info-card reveal stagger-3">
+        <div class="info-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.36 11.36 0 003.55.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.27 1.11l-2.18 2.13z" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>İletişim</h3>
+        <p>
+          <a href="tel:+905351032005">+90 (0535) 103 2005</a><br>
+          <a href="https://www.instagram.com/rayiha_food.co/" target="_blank" rel="noopener">@rayiha_food.co</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo reveal">Râyiha Food CO.</div>
+    <p class="footer-tagline reveal stagger-1">Merak iyidir değil mi?</p>
+    <div class="footer-divider"></div>
+    <p class="footer-follow reveal">Follow Us</p>
+    <a
+      href="https://www.instagram.com/rayiha_food.co/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="ig-link reveal stagger-1"
+      aria-label="Instagram'da Takip Et"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" stroke-width="1.6"/>
+        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+        <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
+      </svg>
+      @rayiha_food.co
+    </a>
+    <p class="footer-copy reveal stagger-2">© 2025 Râyiha Food CO. · Tüm hakları saklıdır.</p>
+  </footer>
+
+  <script>
+    // Sticky nav
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Scroll reveal with IntersectionObserver
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+
+    // Menu tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const panel = document.getElementById('tab-' + btn.dataset.tab);
+        panel.classList.add('active');
+        // re-observe newly shown elements
+        panel.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+          setTimeout(() => io.observe(el), 10);
+        });
+      });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+  </script>
+</body>
+</html>
