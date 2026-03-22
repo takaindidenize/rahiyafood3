@@ -633,13 +633,17 @@
       border-radius: 12px;
       overflow: hidden;
       margin-bottom: 1.6rem;
-      aspect-ratio: 16 / 9;
-      background: rgba(255,255,255,.05);
+      aspect-ratio: 4 / 3;
+      background: rgba(255,255,255,.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
     }
     .brand-img-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       transition: transform .5s var(--ease-out-quart);
     }
     .brand-card:hover .brand-img-wrap img {
@@ -770,7 +774,7 @@
       <div class="brands-grid">
         <div class="brand-card sumakh reveal reveal-left stagger-1">
           <div class="brand-img-wrap">
-            <img src="sumakh-photo.jpg" alt="Sumakh — Dürüm ve Bowl Çeşitleri" />
+            <img src="sumakh-photo.jpeg" alt="Sumakh — Dürüm ve Bowl Çeşitleri" />
           </div>
           <div class="brand-name">Sumakh</div>
           <p>Tavuk dürüm, falafel dürüm ve uygun fiyatlı protein odaklı ürünler sunan hızlı tüketim markamız. Doyuruculuk ve lezzet bir arada.</p>
@@ -778,7 +782,7 @@
         </div>
         <div class="brand-card helwa reveal reveal-right stagger-2">
           <div class="brand-img-wrap">
-            <img src="helwa-photo.jpg" alt="Helwa — İrmik Helvası Çeşitleri" />
+            <img src="helwa-photo.jpeg" alt="Helwa — İrmik Helvası Çeşitleri" />
           </div>
           <div class="brand-name">Helwa</div>
           <p>İrmik helvası çeşitleriyle tatlı ihtiyacını karşılayan, sepet ortalamasını artıran tamamlayıcı tatlı markamız.</p>
